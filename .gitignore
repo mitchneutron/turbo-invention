@@ -33,6 +33,7 @@ yarn-error.log*
 .cache/
 
 # External tools/repos
+# Ignore the entire atlassian generator repo (generated types are in src/types/atlassian/)
 atlassian-ts-client-generator/
 
 # OS specific
