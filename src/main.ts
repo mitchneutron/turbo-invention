@@ -1,5 +1,6 @@
 import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
 import {DEFAULT_SETTINGS, TurboInventionSettings, TurboInventionSettingTab} from "./settings";
+import {ConfluenceClient, ConfluenceSync} from "./confluence";
 
 // Remember to rename these classes and interfaces!
 
@@ -56,6 +57,15 @@ export default class TurboInventionPlugin extends Plugin {
 			}
 		});
 
+		// Confluence sync command
+		this.addCommand({
+			id: 'sync-confluence',
+			name: 'Sync from Confluence',
+			callback: async () => {
+				await this.syncConfluence();
+			}
+		});
+
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new TurboInventionSettingTab(this.app, this));
 
@@ -74,11 +84,31 @@ export default class TurboInventionPlugin extends Plugin {
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<MyPluginSettings>);
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<TurboInventionSettings>);
 	}
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+	}
+
+	async syncConfluence(): Promise<void> {
+		const {confluenceUrl, confluenceEmail, confluenceApiToken, confluenceRootDir} = this.settings;
+
+		// Validate settings
+		if (!confluenceUrl || !confluenceEmail || !confluenceApiToken) {
+			new Notice('Please configure Confluence settings (URL, email, and API token) first');
+			return;
+		}
+
+		if (!confluenceRootDir) {
+			new Notice('Please configure Confluence root directory in settings');
+			return;
+		}
+
+		const client = new ConfluenceClient(confluenceUrl, confluenceEmail, confluenceApiToken);
+		const sync = new ConfluenceSync(this.app, client, confluenceRootDir);
+
+		await sync.syncAll();
 	}
 }
 
