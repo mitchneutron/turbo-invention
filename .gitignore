@@ -33,9 +33,8 @@ yarn-error.log*
 .cache/
 
 # External tools/repos
-# Ignore everything in atlassian-ts-client-generator except generated-code
-atlassian-ts-client-generator/*
-!atlassian-ts-client-generator/generated-code/
+# Ignore the entire atlassian generator repo (generated types are in src/types/atlassian/)
+atlassian-ts-client-generator/
 
 # OS specific
 Thumbs.db
