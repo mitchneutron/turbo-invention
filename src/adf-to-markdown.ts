@@ -512,8 +512,10 @@ export class ADFToMarkdownConverter {
 		if (!timestamp) return '';
 		
 		try {
-			const date = new Date(parseInt(timestamp, 10));
-			return date.toISOString().split('T')[0] ?? '';
+			const date = new Date(Number(timestamp));
+			const isoString = date.toISOString();
+			const datePart = isoString.split('T')[0];
+			return datePart ?? '';
 		} catch {
 			return timestamp;
 		}
