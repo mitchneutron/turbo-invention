@@ -54,10 +54,13 @@ export class ConfluenceSync {
 	 */
 	private sanitizeTitle(title: string): string {
 		// Remove or replace characters that are invalid in file names
-		return title
+		const sanitized = title
 			.replace(/[\\/:*?"<>|]/g, '-')
 			.replace(/\s+/g, ' ')
 			.trim();
+		
+		// Handle empty or whitespace-only titles
+		return sanitized || 'Untitled';
 	}
 
 	/**
@@ -105,7 +108,7 @@ export class ConfluenceSync {
 				await this.ensureDirectory(folderPath);
 
 				// Save the parent page as index.md in the folder
-				const indexPath = normalizePath(`${folderPath}/${sanitizedTitle}.md`);
+				const indexPath = normalizePath(`${folderPath}/index.md`);
 				const content = node.page.body?.atlas_doc_format?.value ?? '';
 				const existingFile = this.app.vault.getFileByPath(indexPath);
 				if (existingFile) {

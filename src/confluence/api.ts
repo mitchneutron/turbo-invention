@@ -23,7 +23,10 @@ export class ConfluenceClient {
 
 	private getAuthHeader(): string {
 		const credentials = `${this.email}:${this.apiToken}`;
-		return `Basic ${btoa(credentials)}`;
+		// Use TextEncoder to handle non-ASCII characters properly
+		const bytes = new TextEncoder().encode(credentials);
+		const binaryString = Array.from(bytes, byte => String.fromCharCode(byte)).join('');
+		return `Basic ${btoa(binaryString)}`;
 	}
 
 	private async request<T>(endpoint: string): Promise<T> {
