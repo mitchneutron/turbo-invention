@@ -74,7 +74,7 @@ export default class TurboInventionPlugin extends Plugin {
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<MyPluginSettings>);
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<TurboInventionSettings>);
 	}
 
 	async saveSettings() {
