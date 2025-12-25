@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+main.js
+main.js.map
+*.js.map
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env
+.env.local
+
+# Plugin data (contains user settings and sensitive data)
+data.json
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+.temp/
+.cache/
+
+# External tools/repos
+atlassian-ts-client-generator/
+
+# OS specific
+Thumbs.db

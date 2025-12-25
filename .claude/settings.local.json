@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -s https://raw.githubusercontent.com/GerroDen/atlassian-ts-client-generator/master/README.md)",
+      "Bash(curl -s https://raw.githubusercontent.com/GerroDen/atlassian-ts-client-generator/master/package.json)",
+      "Bash(git clone https://github.com/GerroDen/atlassian-ts-client-generator.git)",
+      "Bash(npm install)",
+      "Bash(npm run fetch)",
+      "Bash(npm run gen)",
+      "Bash(docker --version)",
+      "Bash(git rm --cached main.js)",
+      "Bash(brew install openjdk@11)",
+      "Bash(export PATH=\"/opt/homebrew/opt/openjdk@11/bin:$PATH\")",
+      "Bash(java -version)",
+      "*",
+      "Bash(npm run build)",
+      "Bash(git config --global push.autoSetupRemote true)",
+      "Bash(git config --global --get push.autoSetupRemote)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
