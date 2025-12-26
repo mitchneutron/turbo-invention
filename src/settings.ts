@@ -6,13 +6,15 @@ export interface TurboInventionSettings {
 	confluenceUrl: string;
 	confluenceEmail: string;
 	confluenceApiToken: string;
+	confluenceRootDir: string;
 }
 
 export const DEFAULT_SETTINGS: TurboInventionSettings = {
 	mySetting: 'default',
 	confluenceUrl: '',
 	confluenceEmail: '',
-	confluenceApiToken: ''
+	confluenceApiToken: '',
+	confluenceRootDir: 'Confluence'
 }
 
 export class TurboInventionSettingTab extends PluginSettingTab {
@@ -66,6 +68,17 @@ export class TurboInventionSettingTab extends PluginSettingTab {
 					});
 				text.inputEl.type = 'password';
 			});
+
+		new Setting(containerEl)
+			.setName('Confluence root directory')
+			.setDesc('The folder in your vault where Confluence content will be synced')
+			.addText(text => text
+				.setPlaceholder('Confluence')
+				.setValue(this.plugin.settings.confluenceRootDir)
+				.onChange(async (value) => {
+					this.plugin.settings.confluenceRootDir = value;
+					await this.plugin.saveSettings();
+				}));
 
 		new Setting(containerEl)
 			.setName('Other')
